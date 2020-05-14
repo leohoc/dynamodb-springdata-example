@@ -6,5 +6,4 @@ import org.springframework.data.repository.CrudRepository;
 
 @EnableScan
 public interface MusicRepository extends CrudRepository<Music, String> {
-
 }
