@@ -1,0 +1,27 @@
+{
+  "TableName": "ImprovedMusic",
+  "KeySchema": [
+    {
+      "KeyType": "HASH",
+      "AttributeName": "Artist"
+    },
+    {
+      "KeyType": "RANGE",
+      "AttributeName": "SongTitle"
+    }
+  ],
+  "AttributeDefinitions": [
+    {
+      "AttributeName": "Artist",
+      "AttributeType": "S"
+    },
+    {
+      "AttributeName": "SongTitle",
+      "AttributeType": "S"
+    }
+  ],
+  "ProvisionedThroughput": {
+    "WriteCapacityUnits": 10,
+    "ReadCapacityUnits": 5
+  }
+}

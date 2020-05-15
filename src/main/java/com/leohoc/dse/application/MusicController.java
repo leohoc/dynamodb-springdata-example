@@ -26,7 +26,7 @@ public class MusicController {
     public ResponseEntity listMusics() {
 
         LOGGER.info("m=listMusics");
-        List<Music> musics = musicService.listAllMusic();
+        List<Music> musics = musicService.listAllMusics();
         return new ResponseEntity(musics, HttpStatus.OK);
     }
 

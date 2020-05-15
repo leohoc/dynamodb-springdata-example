@@ -14,7 +14,7 @@ public class MusicService {
     @Autowired
     private MusicRepository musicRepository;
 
-    public List<Music> listAllMusic() {
+    public List<Music> listAllMusics() {
         Iterable<Music> musics = musicRepository.findAll();
         return Lists.newArrayList(musics);
     }
