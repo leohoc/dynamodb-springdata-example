@@ -1,0 +1,27 @@
+{
+  "TableName": "MuchImprovedMusic",
+  "KeySchema": [
+    {
+      "KeyType": "HASH",
+      "AttributeName": "MusicCode"
+    },
+    {
+      "KeyType": "RANGE",
+      "AttributeName": "ReleaseDateTime"
+    }
+  ],
+  "AttributeDefinitions": [
+    {
+      "AttributeName": "MusicCode",
+      "AttributeType": "S"
+    },
+    {
+      "AttributeName": "ReleaseDateTime",
+      "AttributeType": "S"
+    }
+  ],
+  "ProvisionedThroughput": {
+    "WriteCapacityUnits": 10,
+    "ReadCapacityUnits": 5
+  }
+}

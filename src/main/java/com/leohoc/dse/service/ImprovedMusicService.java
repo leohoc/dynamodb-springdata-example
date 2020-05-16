@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ImprovedMusicService {
@@ -22,5 +23,10 @@ public class ImprovedMusicService {
 
     public ImprovedMusic createImprovedMusic(final ImprovedMusicId improvedMusicId) {
         return improvedMusicRepository.save(new ImprovedMusic(improvedMusicId));
+    }
+
+    public ImprovedMusic getImprovedMusic(final String artist, final String songTitle) {
+        Optional<ImprovedMusic> improvedMusicOptional = improvedMusicRepository.findById(new ImprovedMusicId(artist, songTitle));
+        return improvedMusicOptional.get();
     }
 }

@@ -8,13 +8,12 @@ import com.leohoc.dse.service.MusicService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -25,19 +24,26 @@ public class ImprovedMusicController {
     @Autowired
     ImprovedMusicService improvedMusicService;
 
-    @GetMapping("/improved-musics")
-    public ResponseEntity listImprovedMusics() {
-
-        LOGGER.info("m=listImprovedMusics");
-        List<ImprovedMusic> improvedMusics = improvedMusicService.listAllImprovedMusics();
-        return new ResponseEntity(improvedMusics, HttpStatus.OK);
-    }
-
     @PostMapping(value = "/improved-musics", consumes = "application/json")
     public ResponseEntity createImprovedMusic(@RequestBody final ImprovedMusicId improvedMusicId) {
 
         LOGGER.info("m=createImprovedMusic, improvedMusic={}", improvedMusicId);
         improvedMusicService.createImprovedMusic(improvedMusicId);
         return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @GetMapping("/improved-musics")
+    public ResponseEntity getImprovedMusics(@RequestParam(value = "artist", required = false) final String artist,
+                                            @RequestParam(value = "songTitle", required = false) final String songTitle) {
+
+        LOGGER.info("m=getImprovedMusic, artist={}, songTitle={}", artist, songTitle);
+
+        if (artist == null && songTitle == null) {
+            List<ImprovedMusic> improvedMusics = improvedMusicService.listAllImprovedMusics();
+            return new ResponseEntity(improvedMusics, HttpStatus.OK);
+        }
+
+        ImprovedMusic improvedMusic = improvedMusicService.getImprovedMusic(artist, songTitle);
+        return new ResponseEntity(improvedMusic, HttpStatus.OK);
     }
 }
