@@ -1,7 +1,5 @@
 # DYNAMODB-SPRINGDATA-EXAMPLE
 
-> Development in progress
-
 ### Description
 
 Examples of integration between DynamoDB and Spring Data:
