@@ -6,6 +6,7 @@ import com.leohoc.dse.service.MuchImprovedMusicService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -46,15 +47,19 @@ public class MuchImprovedMusicController {
     }
 
     @GetMapping("/much-improved-musics")
-    public ResponseEntity listAllMuchImprovedMusics(@RequestParam(value = "artist", required = false) final String artist) {
+    public ResponseEntity listAllMuchImprovedMusics(
+                @RequestParam(value = "artist", required = false) final String artist,
+                @RequestParam(value = "startReleaseDateTime", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) final LocalDateTime startReleaseDateTime,
+                @RequestParam(value = "endReleaseDateTime", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) final LocalDateTime endReleaseDateTime,
+                @RequestParam(value = "page", required = false, defaultValue = "0") final Integer page) {
 
-        LOGGER.info("m=listAllMuchImprovedMusics, artist={}", artist);
+        LOGGER.info("m=listAllMuchImprovedMusics, artist={}, startReleaseDateTime={}, endReleaseDateTime={}, page={}", artist, startReleaseDateTime, endReleaseDateTime, page);
         List<MuchImprovedMusic> muchImprovedMusics;
 
         if (artist == null) {
             muchImprovedMusics = muchImprovedMusicService.listAllMuchImprovedMusics();
         } else {
-            muchImprovedMusics = muchImprovedMusicService.listArtistMusics(artist);
+            muchImprovedMusics = muchImprovedMusicService.listArtistMusics(artist, startReleaseDateTime, endReleaseDateTime, page);
         }
 
         return new ResponseEntity(muchImprovedMusics, HttpStatus.OK);
