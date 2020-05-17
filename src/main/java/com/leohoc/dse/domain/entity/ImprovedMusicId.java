@@ -1,6 +1,7 @@
 package com.leohoc.dse.domain.entity;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBIndexRangeKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey;
 
 public class ImprovedMusicId {
@@ -25,6 +26,7 @@ public class ImprovedMusicId {
     }
 
     @DynamoDBRangeKey(attributeName = "SongTitle")
+    @DynamoDBIndexRangeKey(globalSecondaryIndexName = "MusicArtistIndex")
     public String getSongTitle() {
         return songTitle;
     }

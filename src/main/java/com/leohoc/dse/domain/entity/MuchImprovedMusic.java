@@ -37,6 +37,7 @@ public class MuchImprovedMusic {
     }
 
     @DynamoDBRangeKey(attributeName = "ReleaseDateTime")
+    @DynamoDBIndexRangeKey(globalSecondaryIndexName = "MusicArtistIndex")
     @DynamoDBTypeConverted(converter = LocalDateTimeConverter.class)
     public LocalDateTime getReleaseDateTime() {
         return muchImprovedMusicId != null ? muchImprovedMusicId.getReleaseDateTime() : null;
@@ -50,6 +51,7 @@ public class MuchImprovedMusic {
     }
 
     @DynamoDBAttribute(attributeName = "Artist")
+    @DynamoDBIndexHashKey(globalSecondaryIndexName = "MusicArtistIndex")
     public String getArtist() {
         return artist;
     }

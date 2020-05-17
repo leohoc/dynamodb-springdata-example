@@ -33,4 +33,8 @@ public class MuchImprovedMusicService {
     public MuchImprovedMusic getMuchImprovedMusic(final String musicCode) {
         return muchImprovedMusicRepository.findByMusicCode(musicCode);
     }
+
+    public List<MuchImprovedMusic> listArtistMusics(final String artist) {
+        return muchImprovedMusicRepository.findByArtist(artist);
+    }
 }

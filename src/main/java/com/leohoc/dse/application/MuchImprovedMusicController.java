@@ -46,11 +46,17 @@ public class MuchImprovedMusicController {
     }
 
     @GetMapping("/much-improved-musics")
-    public ResponseEntity listAllMuchImprovedMusics() {
+    public ResponseEntity listAllMuchImprovedMusics(@RequestParam(value = "artist", required = false) final String artist) {
 
-        LOGGER.info("m=listAllMuchImprovedMusics");
+        LOGGER.info("m=listAllMuchImprovedMusics, artist={}", artist);
+        List<MuchImprovedMusic> muchImprovedMusics;
 
-        List<MuchImprovedMusic> muchImprovedMusics = muchImprovedMusicService.listAllMuchImprovedMusics();
+        if (artist == null) {
+            muchImprovedMusics = muchImprovedMusicService.listAllMuchImprovedMusics();
+        } else {
+            muchImprovedMusics = muchImprovedMusicService.listArtistMusics(artist);
+        }
+
         return new ResponseEntity(muchImprovedMusics, HttpStatus.OK);
     }
 }
